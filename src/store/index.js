@@ -21,7 +21,6 @@ export default new Vuex.Store({
 
     clearToken(state) {
       localStorage.removeItem('auth')
-
       state.token = ''
     },
 

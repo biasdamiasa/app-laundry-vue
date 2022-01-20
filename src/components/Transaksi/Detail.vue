@@ -17,7 +17,7 @@
                                                 <div class="col mr-2">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="text-xs font-weight-bold text-primary text-uppercase">member</div>
+                                                            <div class="text-xs font-weight-bold text-primary text-uppercase">Member</div>
                                                             <div class="h6 mb-0 font-weight-bold text-gray-800 mb-2">{{ transaksi.nama }}</div>
                                                             <div class="text-xs font-weight-bold text-primary text-uppercase">Tanggal Order</div>
                                                             <div class="h6 mb-0 font-weight-bold text-gray-800 mb-2">{{ transaksi.tgl_order | moment("DD/MM/YYYY") }}</div>

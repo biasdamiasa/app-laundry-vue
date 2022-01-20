@@ -64,14 +64,13 @@ export default {
         }
     },
     created() {
-
         var data = JSON.parse(this.$store.state.datauser)
         var role = data.role
 
         if(role == 'kasir' || role == 'admin')
         {
             this.axios.get('/member', { headers : { 'Authorization' : 'Bearer ' + this.$store.state.token} })
-                    .then( res => {
+                      .then( res => {
                         this.member = res.data
                     })
         } 
