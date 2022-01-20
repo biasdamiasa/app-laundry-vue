@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import store from '../store/index.js'
+
 import Login from '../components/Login.vue'
 import Dashboard from '../components/Dashboard.vue'
 
@@ -31,6 +33,8 @@ import Report from '../components/Report/Index.vue'
 
 Vue.use(VueRouter)
 
+var user = JSON.parse(store.state.datauser)
+
 const routes = [
   {
     path: '/login',
@@ -42,7 +46,8 @@ const routes = [
     name: 'dashboard',
     component: Dashboard,
     meta : {
-      requiresAuth : true
+      requiresAuth : true,
+      hasAccess : true
     }
   },
   {
@@ -51,6 +56,7 @@ const routes = [
     component: IndexOutlet,
     meta : {
       requiresAuth: true,
+      hasAccess : (user.role == 'admin')
     }
   },
   {
@@ -58,7 +64,8 @@ const routes = [
     name: 'tambahoutlet',
     component: TambahOutlet,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin')
     }
   },
   {
@@ -66,7 +73,8 @@ const routes = [
     name: 'editoutlet',
     component: EditOutlet,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin')
     }
   },
   {
@@ -74,7 +82,8 @@ const routes = [
     name: 'indexpaket',
     component: IndexPaket,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin')
     }
   },
   {
@@ -82,7 +91,8 @@ const routes = [
     name: 'editpaket',
     component: EditPaket,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin')
     }
   },
   {
@@ -90,7 +100,8 @@ const routes = [
     name: 'indexmember',
     component: IndexMember,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin' || user.role == 'kasir')
     }
   },
   {
@@ -98,7 +109,8 @@ const routes = [
     name: 'detailmember',
     component: DetailMember,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin' || user.role == 'kasir')
     }
   },
   {
@@ -106,7 +118,8 @@ const routes = [
     name: 'tambahmember',
     component: TambahMember,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin' || user.role == 'kasir')
     }
   },
   {
@@ -114,7 +127,8 @@ const routes = [
     name: 'editmember',
     component: EditMember,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin' || user.role == 'kasir')
     }
   },
   {
@@ -122,7 +136,8 @@ const routes = [
     name: 'indextransaksi',
     component: IndexTransaksi,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin' || user.role == 'kasir')
     }
   },
   {
@@ -130,7 +145,8 @@ const routes = [
     name: 'tambahtransaksi',
     component: TambahTransaksi,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin' || user.role == 'kasir')
     }
   },
   {
@@ -138,7 +154,8 @@ const routes = [
     name: 'detailtransaksi',
     component: DetailTransaksi,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin' || user.role == 'kasir')
     }
   },
   {
@@ -146,7 +163,8 @@ const routes = [
     name: 'tambahdetail',
     component: TambahDetailTransaksi,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'admin' || user.role == 'kasir')
     }
   },
   {
@@ -154,7 +172,8 @@ const routes = [
     name: 'report',
     component: Report,
     meta : {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess : (user.role == 'owner')
     }
   },
   
@@ -167,9 +186,14 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
+  
+  if (to.meta.requiresAuth) {
       if(localStorage.getItem('auth')) {
-        next()      
+        if(to.meta.hasAccess) {
+          next()
+        } else {
+          next('/')
+        }      
       } else {
         next('/login')
       }
