@@ -18,7 +18,7 @@ export default new Vuex.Store({
       localStorage.setItem('user', data)
       state.datauser = data
     },
-
+    
     clearToken(state) {
       localStorage.removeItem('auth')
       state.token = ''
@@ -26,6 +26,7 @@ export default new Vuex.Store({
 
     clearUser(state) {
       localStorage.removeItem('user')
+      localStorage.removeItem('role')
       state.datauser = ''
     }
 

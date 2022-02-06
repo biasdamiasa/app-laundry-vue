@@ -8,7 +8,7 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <h1>Dashboard</h1>
-                    <h1 class="h4 mb-4 text-gray-800">Selamat datang, {{ role }}</h1>
+                    <h1 class="h4 mb-4 text-gray-800">Selamat datang, {{ name }}</h1>
 
                     <div class="row">
                         <!-- Jumlah member -->
@@ -97,13 +97,13 @@
 export default {
     data() {
         return {
-            role : '',
+            name : '',
             data : {}            
         }
     },
     created() {
         var data = JSON.parse(this.$store.state.datauser)
-        this.role = data.role
+        this.name = data.name
 
         this.axios.get('/dashboard', { headers : { 'Authorization' : 'Bearer ' + this.$store.state.token} })
              .then(res => {

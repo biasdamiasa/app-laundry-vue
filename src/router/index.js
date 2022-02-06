@@ -2,9 +2,18 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import store from '../store/index.js'
+import VueAxios from 'vue-axios'
+import axios from 'axios'
 
 import Login from '../components/Login.vue'
 import Dashboard from '../components/Dashboard.vue'
+
+Vue.use(VueAxios,axios)
+
+//USER
+import IndexUser from '../components/User/Index.vue'
+import TambahUser from '../components/User/Tambah.vue'
+import EditUser from '../components/User/Edit.vue'
 
 //OUTLET
 import IndexOutlet from '../components/Outlet/Index.vue'
@@ -30,10 +39,9 @@ import TambahDetailTransaksi from '../components/Transaksi/TambahDetail.vue'
 //REPORT
 import Report from '../components/Report/Index.vue'
 
+var role = localStorage.getItem('role')
 
 Vue.use(VueRouter)
-
-var user = JSON.parse(store.state.datauser)
 
 const routes = [
   {
@@ -51,12 +59,39 @@ const routes = [
     }
   },
   {
+    path: '/user',
+    name: 'indexuser',
+    component: IndexUser,
+    meta : {
+      requiresAuth : true,
+      hasAccess : role == 'admin'
+    }
+  },
+  {
+    path: '/user/tambah',
+    name: 'tambahuser',
+    component: TambahUser,
+    meta : {
+      requiresAuth : true,
+      hasAccess : role == 'admin'
+    }
+  },
+  {
+    path: '/user/edit/:id',
+    name: 'edituser',
+    component: EditUser,
+    meta : {
+      requiresAuth : true,
+      hasAccess : role == 'admin'
+    }
+  },
+  {
     path: '/outlet',
     name: 'indexoutlet',
     component: IndexOutlet,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin')
+      hasAccess : role == 'admin'
     }
   },
   {
@@ -65,7 +100,7 @@ const routes = [
     component: TambahOutlet,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin')
+      hasAccess : role == 'admin'
     }
   },
   {
@@ -74,7 +109,7 @@ const routes = [
     component: EditOutlet,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin')
+      hasAccess : role == 'admin'
     }
   },
   {
@@ -83,7 +118,7 @@ const routes = [
     component: IndexPaket,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin')
+      hasAccess : role == 'admin'
     }
   },
   {
@@ -92,7 +127,7 @@ const routes = [
     component: EditPaket,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin')
+      hasAccess : role == 'admin'
     }
   },
   {
@@ -101,7 +136,7 @@ const routes = [
     component: IndexMember,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin' || user.role == 'kasir')
+      hasAccess : role == 'admin' || role == 'kasir'
     }
   },
   {
@@ -110,7 +145,7 @@ const routes = [
     component: DetailMember,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin' || user.role == 'kasir')
+      hasAccess : role == 'admin' || role == 'kasir'
     }
   },
   {
@@ -119,7 +154,7 @@ const routes = [
     component: TambahMember,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin' || user.role == 'kasir')
+      hasAccess : role == 'admin' || role == 'kasir'
     }
   },
   {
@@ -128,7 +163,7 @@ const routes = [
     component: EditMember,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin' || user.role == 'kasir')
+      hasAccess : role == 'admin' || role == 'kasir'
     }
   },
   {
@@ -137,7 +172,7 @@ const routes = [
     component: IndexTransaksi,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin' || user.role == 'kasir')
+      hasAccess : role == 'admin' || role == 'kasir'
     }
   },
   {
@@ -146,7 +181,7 @@ const routes = [
     component: TambahTransaksi,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin' || user.role == 'kasir')
+      hasAccess : role == 'admin' || role == 'kasir'
     }
   },
   {
@@ -155,7 +190,7 @@ const routes = [
     component: DetailTransaksi,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin' || user.role == 'kasir')
+      hasAccess : role == 'admin' || role == 'kasir'
     }
   },
   {
@@ -164,7 +199,7 @@ const routes = [
     component: TambahDetailTransaksi,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'admin' || user.role == 'kasir')
+      hasAccess : role == 'admin' || role == 'kasir'
     }
   },
   {
@@ -173,7 +208,7 @@ const routes = [
     component: Report,
     meta : {
       requiresAuth: true,
-      hasAccess : (user.role == 'owner')
+      hasAccess : role == 'owner'
     }
   },
   
@@ -186,19 +221,19 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  
-  if (to.meta.requiresAuth) {
-      if(localStorage.getItem('auth')) {
-        if(to.meta.hasAccess) {
-          next()
+    if (to.meta.requiresAuth) {
+        if(store.state.token) {
+          if(to.meta.hasAccess) {
+            next()
+          } else {
+            next('/')
+          }      
         } else {
-          next('/')
-        }      
-      } else {
-        next('/login')
-      }
-  }
-  next()
+          next('/login')
+        }
+    }
+    next()
+    
 })
 
 export default router

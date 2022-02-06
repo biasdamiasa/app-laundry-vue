@@ -1,5 +1,4 @@
 <template>
-    <div>
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -15,6 +14,12 @@
                 <router-link to="/" class="nav-link">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
+                </router-link>                
+            </li>
+            <li v-if="isAdmin" class="nav-item">
+                <router-link class="nav-link" to="/user">
+                    <i class="fas fa-user"></i>
+                    <span>User</span>
                 </router-link>                
             </li>
             <li v-if="isAdmin || isKasir" class="nav-item">
@@ -50,7 +55,6 @@
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
         </ul>
-    </div>
 </template>
 
 <script>

@@ -141,17 +141,21 @@ export default {
     },
     methods : {
         ubahStatus() {
-            if(this.transaksi.status == 'Baru') { this.transaksi.status = 'Proses' }
+            if (this.transaksi.status == 'Baru') { this.transaksi.status = 'Proses' }
             else { this.transaksi.status = 'Selesai' }
 
-            this.axios.post(`/transaksi/status/${this.id_transaksi}`, this.transaksi, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
+            this.axios.post(`/transaksi/status/${this.id_transaksi}`, 
+                            this.transaksi, 
+                            { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
                  .then( () => {
                      this.$router.go();
                  })
                  .catch(err => console.log(err))
         },
         bayar() {
-            this.axios.post(`/transaksi/bayar/${this.id_transaksi}`, this.transaksi, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
+            this.axios.post(`/transaksi/bayar/${this.id_transaksi}`, 
+                            this.transaksi, 
+                            { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
                  .then( () => {
                      this.$router.go();
                  })

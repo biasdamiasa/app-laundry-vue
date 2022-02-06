@@ -39,7 +39,8 @@ export default {
                       .then( res => {
                          if(res.data.success) {                             
                             this.$store.commit('setToken', res.data.token)
-                            this.$store.commit('setUser', JSON.stringify(res.data.user))                                       
+                            this.$store.commit('setUser', JSON.stringify(res.data.user))  
+                            localStorage.setItem('role', res.data.user.role)                 
                             this.$router.push('/')
                          }                          
                       })
