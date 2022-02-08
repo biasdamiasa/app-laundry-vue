@@ -62,8 +62,11 @@ export default {
     methods : {
         tambah() {
             this.axios.post('/member', this.member, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
-                      .then( () => {
-                          this.$router.push('/member');
+                      .then( (res) => {
+                          if(res.data.success) {
+                              this.$swal(res.data.message)
+                              this.$router.push('/member');
+                          }
                       })
                       .catch( err => console.log(err))
         }

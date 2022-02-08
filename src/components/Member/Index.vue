@@ -81,10 +81,14 @@ export default {
     methods : {
         hapus(id) {
             this.axios.delete(`/member/${id}`, { headers : { 'Authorization' : 'Bearer ' + this.$store.state.token} })
-                      .then( () => {
-                          let i = this.member.map(item => item.id).indexOf(id);
-                          this.member.splice(i, 1)
+                      .then( (res) => {
+                          if(res.data.success) {
+                              let i = this.member.map(item => item.id).indexOf(id);
+                              this.member.splice(i, 1)
+                              this.$swal(res.data.message)
+                          } 
                       })
+                      .catch(this.$swal('Gagal hapus data member'))
         }
     }
 }
