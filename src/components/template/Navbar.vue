@@ -20,7 +20,21 @@
 </template>
 
 <script>
-export default {    
+import axios from 'axios'
+import store from '../../store/index.js'
+import router from '../../router/index.js'
+
+export default {
+        created() {
+        axios.get('/login/check', {headers : {'Authorization' : 'Bearer ' + store.state.token }})
+            .then((res) => {
+            if(!(res.data.success)) {
+                store.commit('clearToken')
+                store.commit('clearUser')
+                router.push('/login')
+            }
+            })
+    },    
     methods : {
         logout() {
             this.axios.post('/logout', { headers : { 'Authorization' : 'Bearer ' + this.$store.state.token} })

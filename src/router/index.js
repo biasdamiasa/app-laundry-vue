@@ -2,13 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import store from '../store/index.js'
-import VueAxios from 'vue-axios'
-import axios from 'axios'
 
 import Login from '../components/Login.vue'
 import Dashboard from '../components/Dashboard.vue'
-
-Vue.use(VueAxios,axios)
 
 //USER
 import IndexUser from '../components/User/Index.vue'
