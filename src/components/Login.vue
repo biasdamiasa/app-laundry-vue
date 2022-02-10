@@ -39,12 +39,11 @@ export default {
                       .then( res => {
                          if(res.data.success) {                             
                             this.$store.commit('setToken', res.data.token)
-                            this.$store.commit('setUser', JSON.stringify(res.data.user))  
-                            localStorage.setItem('role', res.data.user.role)                 
+                            this.$store.commit('setUser', JSON.stringify(res.data.user))            
                             this.$router.push('/')
                          }                          
                       })
-                      .catch(err => console.log(err))            
+                      .catch(err => console.log(err))
         }
     }
 }

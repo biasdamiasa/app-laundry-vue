@@ -42,6 +42,16 @@ export default {
             outlet : {}
         }
     },
+    created() {
+        var data = JSON.parse(this.$store.state.datauser)
+        var role = data.role
+
+        if(role == 'kasir' || role == 'owner')
+        {
+            this.$swal("Anda tidak dapat mengakses halaman ini")
+            this.$router.push('/') 
+        }
+    },
     methods : {
         tambah() {
             this.axios.post('/outlet', this.outlet, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })

@@ -102,6 +102,7 @@ export default {
         }
     },
     created() {
+
         var data = JSON.parse(this.$store.state.datauser)
         this.name = data.name
 

@@ -148,6 +148,16 @@ export default {
         }
     },
     created() {
+
+        var data = JSON.parse(this.$store.state.datauser)
+        var role = data.role
+
+        if(role == 'admin' || role == 'kasir')
+        {
+            this.$swal("Anda tidak dapat mengakses halaman ini")
+            this.$router.push('/') 
+        }
+
         var date = new Date()
         this.report.tahun = date.getFullYear()
         this.report.bulan = ("0" + (date.getMonth() + 1)).slice(-2)

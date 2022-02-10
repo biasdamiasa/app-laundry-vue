@@ -108,6 +108,15 @@ export default {
         }
     },
     created() {
+        var data = JSON.parse(this.$store.state.datauser)
+        var role = data.role
+
+        if(role == 'owner')
+        {
+            this.$swal("Anda tidak dapat mengakses halaman ini")
+            this.$router.push('/') 
+        }
+        
         this.axios.get(`/transaksi/${this.id_transaksi}`, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
              .then((res) => {
                  this.transaksi = res.data

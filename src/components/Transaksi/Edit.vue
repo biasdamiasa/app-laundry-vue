@@ -10,21 +10,16 @@
                         <div class="col-lg-8">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Tambah Detail Transaksi</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Edit Data Transaksi</h6>
                                 </div>
                                 <div class="card-body">
-                                    <form @submit.prevent="tambah">
+                                    <form @submit.prevent="edit">
                                         <div class="form-group">
-                                            <label>Jenis Paket</label>
-                                            <select class="form-control" v-model="detail.id_paket">
-                                                <option v-for="(p, index) in paket" :key="index" :value="p.id">{{ p.jenis }}</option>
+                                            <label>Member</label>
+                                            <select class="form-control" v-model="transaksi.id_member">
+                                                <option v-for="(m, index) in member" :key="index" :value="m.id">{{ m.nama }}</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Jumlah (kg / satuan)</label>
-                                            <input type="text" class="form-control" v-model="detail.quantity">
-                                        </div>
-                                        <input type="hidden" v-model="detail.id_transaksi">
                                         <button type="submit" class="btn btn-success btn-block">Simpan</button>
                                     </form>
                                 </div>
@@ -43,9 +38,8 @@
 export default {
     data() {
         return {
-            id_transaksi : this.$route.params.id,
-            paket : {},
-            detail : {}
+            member : {},
+            transaksi : {}
         }
     },
     created() {
@@ -58,21 +52,28 @@ export default {
             this.$router.push('/') 
         }
         
-        this.axios.get('/paket', { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
+        this.axios.get('/member', { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
              .then( (res) => {
-                    this.paket = res.data.data
-                    this.detail.id_transaksi = this.id_transaksi
+                this.member = res.data
              })
              .catch(err => console.log(err))
-    },    
+        this.axios.get(`/transaksi/${this.$route.params.id}`, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
+             .then( (res) => {
+                this.transaksi = res.data
+             })
+             .catch(err => console.log(err))
+    },
     methods : {
-        tambah() {
-            this.axios.post('/transaksi/detil', this.detail, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
-                      .then( () => {
-                          this.$router.push({ name : 'detailtransaksi', params : this.id_transaksi});
+        edit() {
+            this.axios.put(`/transaksi/${this.$route.params.id}`, this.transaksi, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
+                      .then((res) => {
+                          if(res.data.success) {
+                              this.$swal(res.data.message)
+                              this.$router.push('/transaksi')
+                          }
                       })
-                      .catch( err => console.log(err))
+                      .catch(err => console.log(err))
         }
-    } 
+    }
 }
 </script>

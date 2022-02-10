@@ -17,6 +17,9 @@ export default new Vuex.Store({
     setUser(state, data) {
       localStorage.setItem('user', data)
       state.datauser = data
+
+      var datarole = (JSON.parse(data)).role
+      state.role = datarole
     },
     
     clearToken(state) {
