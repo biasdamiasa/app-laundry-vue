@@ -52,13 +52,7 @@
                                         <div class="card-header py-3">
                                             <h6 class="m-0 font-weight-bold text-primary">Detail Transaksi</h6>
                                         </div>
-                                        <div class="card-body">
-                                            <button type="button" class="btn btn-sm btn-info btn-icon-split mb-3">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-print"></i>
-                                                </span>
-                                                <span class="text">Cetak Struk</span>
-                                            </button>
+                                        <div class="card-body">                                            
                                             <table class="table">
                                                 <thead>
                                                     <tr>

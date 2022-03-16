@@ -29,7 +29,6 @@ import EditMember from '../components/Member/Edit.vue'
 //TRANSAKSI
 import IndexTransaksi from '../components/Transaksi/Index.vue'
 import TambahTransaksi from '../components/Transaksi/Tambah.vue'
-import EditTransaksi from '../components/Transaksi/Edit.vue'
 import DetailTransaksi from '../components/Transaksi/Detail.vue'
 import TambahDetailTransaksi from '../components/Transaksi/TambahDetail.vue'
 
@@ -160,14 +159,6 @@ const routes = [
     path: '/transaksi/tambah',
     name: 'tambahtransaksi',
     component: TambahTransaksi,
-    meta : {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/transaksi/edit/:id',
-    name: 'edittransaksi',
-    component: EditTransaksi,
     meta : {
       requiresAuth: true
     }

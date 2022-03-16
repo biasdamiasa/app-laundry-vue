@@ -18,9 +18,11 @@ Vue.use(require('vue-moment'))
 Vue.use(VueHtml2pdf)
 Vue.use(VueSweetalert2)
 
-Vue.component('navbar-component', require('./components/template/Navbar.vue').default);
-Vue.component('sidebar-component', require('./components/template/Sidebar.vue').default);
-Vue.component('footer-component', require('./components/template/Footer.vue').default);
+Vue.component('navbar-component', require('./components/template/Navbar.vue').default)
+Vue.component('sidebar-component', require('./components/template/Sidebar.vue').default)
+Vue.component('footer-component', require('./components/template/Footer.vue').default)
+
+// Vue.component('pagination', require('laravel-vue-pagination'));
 
 axios.defaults.baseURL = `http://localhost:8000/api`
 

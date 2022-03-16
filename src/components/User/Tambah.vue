@@ -80,8 +80,11 @@ export default {
     methods : {
         tambah() {
             this.axios.post('/user', this.user, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
-                      .then( () => {
-                          this.$router.push('/user');
+                      .then( (res) => {
+                          if(res.data.success) {
+                              this.$swal("Sukses", res.data.message, "success")
+                              this.$router.push('/user');
+                          }
                       })
                       .catch( err => console.log(err))
         }

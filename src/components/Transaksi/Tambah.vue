@@ -61,8 +61,11 @@ export default {
     methods : {
         tambah() {
             this.axios.post('/transaksi', this.transaksi, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
-                      .then( () => {
-                          this.$router.push('/transaksi');
+                      .then( (res) => {
+                          if(res.data.success) {
+                              this.$swal("Sukses", res.data.message, "success")
+                              this.$router.push('/transaksi');
+                          }
                       })
                       .catch( err => console.log(err))
         }

@@ -46,7 +46,7 @@
                     <span>Transaksi</span>
                 </router-link>                
             </li>
-            <li v-if="isOwner" class="nav-item">
+            <li class="nav-item">
                 <router-link class="nav-link" to="/report">
                     <i class="far fa-file-alt"></i>
                     <span>Report</span>

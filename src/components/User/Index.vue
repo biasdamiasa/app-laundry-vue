@@ -66,7 +66,7 @@ export default {
 
         if(role == 'kasir' || role == 'owner')
         {
-            this.$swal("Anda tidak dapat mengakses halaman ini")
+            this.$swal("Error","Anda tidak dapat mengakses halaman ini","error")
             this.$router.push('/') 
         }
         

@@ -23,7 +23,7 @@
                                             <input type="text" class="form-control" v-model="user.username">
                                         </div>                                        
                                         <div class="form-group">
-                                            <label>Password</label>
+                                            <label>Password Baru</label>
                                             <input type="password" class="form-control" v-model="user.password">                                            
                                         </div>
                                         <div class="form-group">

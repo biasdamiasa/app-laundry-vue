@@ -65,7 +65,7 @@ export default {
 
         if(role == 'owner')
         {
-            this.$swal("Anda tidak dapat mengakses halaman ini")
+            this.$swal("Error","Anda tidak dapat mengakses halaman ini","error")
             this.$router.push('/') 
         }
     },
@@ -74,7 +74,7 @@ export default {
             this.axios.post('/member', this.member, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
                       .then( (res) => {
                           if(res.data.success) {
-                              this.$swal(res.data.message)
+                              this.$swal("Sukses", res.data.message, "success")
                               this.$router.push('/member');
                           }
                       })

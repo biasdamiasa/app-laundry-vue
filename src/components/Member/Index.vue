@@ -57,7 +57,7 @@
 
 <script>
 
-export default {
+export default {    
     data() {
         return {
             member : {}
@@ -69,7 +69,7 @@ export default {
 
         if(role == 'owner')
         {
-            this.$swal("Anda tidak dapat mengakses halaman ini")
+            this.$swal("Error","Anda tidak dapat mengakses halaman ini","error")
             this.$router.push('/') 
         }
         
@@ -81,15 +81,27 @@ export default {
     },
     methods : {
         hapus(id) {
-            this.axios.delete(`/member/${id}`, { headers : { 'Authorization' : 'Bearer ' + this.$store.state.token} })
-                      .then( (res) => {
-                          if(res.data.success) {
-                              let i = this.member.map(item => item.id).indexOf(id);
-                              this.member.splice(i, 1)
-                              this.$swal(res.data.message)
-                          } 
-                      })
-                      .catch(this.$swal('Gagal hapus data member'))
+            this.$swal.fire({
+                title : 'Anda yakin ingin menghapus data?',
+                icon : 'warning',
+                showCancelButton : true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal'
+            }).then((res) => {
+                if(res.value) {
+                    this.axios.delete(`/member/${id}`, { headers : { 'Authorization' : 'Bearer ' + this.$store.state.token} })
+                              .then( (res) => {
+                                  if(res.data.success) {
+                                      let i = this.member.map(item => item.id).indexOf(id);
+                                      this.member.splice(i, 1)
+                                      this.$swal("Sukses", res.data.message, "success")
+                                  } 
+                              })
+                              .catch(this.$swal("Gagal", "Gagal menghapus data member", "error"))
+                }
+            })
         }
     }
 }

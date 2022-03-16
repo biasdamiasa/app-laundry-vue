@@ -20,18 +20,15 @@
 </template>
 
 <script>
-import axios from 'axios'
-import store from '../../store/index.js'
-import router from '../../router/index.js'
-
 export default {
         created() {
-        axios.get('/login/check', {headers : {'Authorization' : 'Bearer ' + store.state.token }})
+        this.axios.get('/login/check', {headers : {'Authorization' : 'Bearer ' + this.$store.state.token }})
             .then((res) => {
             if(!(res.data.success)) {
-                store.commit('clearToken')
-                store.commit('clearUser')
-                router.push('/login')
+                this.$store.commit('clearToken')
+                this.$store.commit('clearUser')
+                this.$swal("Error","Sesi Anda sudah habis","error")
+                this.$router.push('/login')
             }
             })
     },    

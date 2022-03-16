@@ -55,7 +55,7 @@ export default {
 
         if(role == 'owner')
         {
-            this.$swal("Anda tidak dapat mengakses halaman ini")
+            this.$swal("Error","Anda tidak dapat mengakses halaman ini","error")
             this.$router.push('/') 
         }
 

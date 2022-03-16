@@ -67,7 +67,7 @@ export default {
     },    
     methods : {
         tambah() {
-            this.axios.post('/transaksi/detil', this.detail, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
+            this.axios.post('/transaksi/detil/tambah', this.detail, { headers : { 'Authorization' : `Bearer ` + this.$store.state.token} })
                       .then( () => {
                           this.$router.push({ name : 'detailtransaksi', params : this.id_transaksi});
                       })

@@ -45,9 +45,6 @@
                                                        <router-link class="btn btn-success btn-circle mr-1" :to="{ name : 'detailtransaksi' , params : { id : t.id } }">
                                                            <i class="far fa-eye"></i>
                                                         </router-link>
-                                                       <router-link class="btn btn-warning btn-circle" :to="{ name : 'edittransaksi' , params : { id : t.id } }">
-                                                           <i class="fas fa-pen"></i>
-                                                        </router-link>
                                                    </td>
                                                </tr>
                                             </tbody>
