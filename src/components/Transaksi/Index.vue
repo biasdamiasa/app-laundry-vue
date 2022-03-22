@@ -27,6 +27,7 @@
                                                     <th>Nama Member</th>
                                                     <th>Tgl Order</th>
                                                     <th>Status</th>
+                                                    <th>Petugas</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -41,6 +42,7 @@
                                                        <span v-if="t.status == 'Selesai'" class="badge bg-success text-light">{{ t.status }}</span>                                                       
                                                        <span v-if="t.status == 'Diambil'" class="badge bg-secondary text-light">{{ t.status }}</span>
                                                    </td>
+                                                   <td>{{ t.name }}</td>
                                                    <td>
                                                        <router-link class="btn btn-success btn-circle mr-1" :to="{ name : 'detailtransaksi' , params : { id : t.id } }">
                                                            <i class="far fa-eye"></i>

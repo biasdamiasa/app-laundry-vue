@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token : localStorage.getItem('auth') || '',
-    datauser : localStorage.getItem('user') || ''
+    datauser : localStorage.getItem('user') || '',
+    dataoutlet : localStorage.getItem('outlet') || ''
   },
   mutations: {
     setToken(state, token) {
@@ -18,8 +19,13 @@ export default new Vuex.Store({
       localStorage.setItem('user', data)
       state.datauser = data
 
-      var datarole = (JSON.parse(data)).role
-      state.role = datarole
+      // var datarole = (JSON.parse(data)).role
+      // state.role = datarole
+    },
+
+    setOutlet(state, data) {
+      localStorage.setItem('outlet', data)
+      state.dataoutlet = data
     },
     
     clearToken(state) {
@@ -29,7 +35,8 @@ export default new Vuex.Store({
 
     clearUser(state) {
       localStorage.removeItem('user')
-      localStorage.removeItem('role')
+      // localStorage.removeItem('role')
+      localStorage.removeItem('outlet')
       state.datauser = ''
     }
 
