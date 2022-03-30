@@ -99,7 +99,9 @@ export default {
                                       this.$swal("Sukses", res.data.message, "success")
                                   } 
                               })
-                              .catch(this.$swal("Gagal", "Gagal menghapus data member", "error"))
+                              .catch(() => {
+                                  this.$swal("Gagal", "Gagal menghapus data member", "error")
+                              })
                 }
             })
         }
